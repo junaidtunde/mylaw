@@ -190,4 +190,18 @@ export class AppComponent implements OnInit {
       }
     );
   }
+
+  deleteTalk(id) {
+    window.confirm('Are you sure you want to delete the talk?')
+      ? this.dataService.deleteTalk(id).subscribe(
+          res => {
+            this.showSuccessToast('The talk has been successfully deleted');
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          },
+          err => this.showDangerToast(err.message)
+        )
+      : console.log('okay');
+  }
 }

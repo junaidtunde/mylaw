@@ -15,5 +15,6 @@ routes.post('/attendee/add', controllers.attendeeController.addAttendee);
 routes.get('/talk/all', controllers.talkController.allTalks);
 routes.post('/talk/add', controllers.talkController.addTalk);
 routes.post('/talk/attendee', controllers.talkController.addAttendee);
+routes.delete('/talk/delete/:id', controllers.talkController.deleteTalk);
 
 export default routes;

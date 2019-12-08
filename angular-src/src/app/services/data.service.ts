@@ -33,4 +33,8 @@ export class DataService {
   addAttendeeToTalk(obj) {
     return this.http.post(this.baseUrl + '/talk/attendee', obj);
   }
+
+  deleteTalk(id) {
+    return this.http.delete(this.baseUrl + '/talk/delete/' + id);
+  }
 }

@@ -28,6 +28,7 @@ routes.post('/attendee/add', _controllers2.default.attendeeController.addAttende
 routes.get('/talk/all', _controllers2.default.talkController.allTalks);
 routes.post('/talk/add', _controllers2.default.talkController.addTalk);
 routes.post('/talk/attendee', _controllers2.default.talkController.addAttendee);
+routes.delete('/talk/delete/:id', _controllers2.default.talkController.deleteTalk);
 
 exports.default = routes;
 //# sourceMappingURL=routes.js.map

@@ -80,4 +80,19 @@ talkController.allTalks = (req, res) => {
     .catch(err => res.status(500).json({ status: false, message: err.message }));
 };
 
+talkController.deleteTalk = (req, res) => {
+  const id = req.params.id;
+  db.Talk.findByIdAndDelete(id, (err, deleted) => {
+    if (err) {
+      res.status(500).json({ status: false, message: err.message });
+    } else {
+      res.status(200).json({
+        status: true,
+        message: 'Talk has been deleted successfully',
+        data: deleted
+      });
+    }
+  });
+};
+
 export default talkController;

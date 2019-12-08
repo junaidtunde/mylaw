@@ -190,8 +190,9 @@
                 <td>{{ item.title }}</td>
                 <td>{{ item.author }}</td>
                 <td>{{ item.date | date: 'dd/MM/yyyy' }}</td>
-                <td class="text-center">
+                <td class="text-center" style="display: flex">
                   <button class="btn btn-sm btn-danger" (click)="detailsModal(item.attendees, item._id)">+</button>
+                  <button class="btn btn-sm btn-danger ml-1" (click)="deleteTalk(item._id)">-</button>
                 </td>
               </tr>
             </tbody>
@@ -250,7 +251,8 @@
               <select class="form-control mt-3 mb-2" (change)="addAttendeeToTalk(talkId, $event.target.value)">
                 <option default>Select Attendee</option>
                 <option *ngFor="let item of attendees | async" [value]="item._id"
-                  >{{ item.lastname }} {{ item.firstname }}
+                  >{{ item.lastname }}
+                  {{ item.firstname }}
                 </option>
               </select>
             </form>
