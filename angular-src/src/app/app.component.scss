@@ -1,0 +1,18 @@
+.top-margin {
+  margin-top: 2em;
+
+  .card {
+    width: 100%;
+    box-shadow: 0px 1px 20px 0.2rem #f1f1f1;
+    border: none;
+  }
+
+  .form-input {
+    width: 90%;
+  }
+
+  .table-card {
+    height: 97%;
+    overflow-y: scroll;
+  }
+}

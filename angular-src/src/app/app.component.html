@@ -1,0 +1,262 @@
+<div class="sk-cube-grid" *ngIf="loading">
+  <div class="sk-cube sk-cube1"></div>
+  <div class="sk-cube sk-cube2"></div>
+  <div class="sk-cube sk-cube3"></div>
+  <div class="sk-cube sk-cube4"></div>
+  <div class="sk-cube sk-cube5"></div>
+  <div class="sk-cube sk-cube6"></div>
+  <div class="sk-cube sk-cube7"></div>
+  <div class="sk-cube sk-cube8"></div>
+  <div class="sk-cube sk-cube9"></div>
+</div>
+
+<div *ngIf="!loading" class="container-fluid top-margin">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h3>Add Attendee</h3>
+          <hr />
+
+          <form (ngSubmit)="addAttendee()" [formGroup]="addAttendeeForm">
+            <div class="mb-3">
+              <label for="firstname">First Name</label>
+              <input
+                type="text"
+                class="form-control form-input"
+                id="firstname"
+                (focus)="reset()"
+                [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"
+                formControlName="firstname"
+                placeholder="Attendee's first name"
+                required
+              />
+              <div class="invalid-feedback">
+                Please, enter the attendee's first name
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="lastname">Last Name</label>
+              <input
+                type="text"
+                class="form-control form-input"
+                id="lastname"
+                (focus)="reset()"
+                [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"
+                formControlName="lastname"
+                placeholder="Attendee's first name"
+                required
+              />
+              <div class="invalid-feedback">
+                Please, enter the attendee's last name
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control form-input"
+                id="email"
+                (focus)="reset()"
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                formControlName="email"
+                placeholder="Attendee's email"
+                required
+              />
+              <div class="invalid-feedback">
+                Please, enter the attendee's email
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="phonenumber">Phone Number</label>
+              <input
+                type="tel"
+                class="form-control form-input"
+                id="phonenumber"
+                (focus)="reset()"
+                [ngClass]="{ 'is-invalid': submitted && f.phonenumber.errors }"
+                (keypress)="keyPress($event)"
+                formControlName="phonenumber"
+                placeholder="Attendee's phone number"
+                required
+              />
+              <div class="invalid-feedback">
+                Please, enter the attendee's phone number
+              </div>
+            </div>
+
+            <button class="btn btn-success" type="submit" [disabled]="submittingAttendee">
+              <div *ngIf="submittingAttendee">
+                Loading....
+              </div>
+              <div *ngIf="!submittingAttendee">
+                Add Attendee
+              </div>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card mt-3 mb-4">
+        <div class="card-body">
+          <h3>Add Talk</h3>
+          <hr />
+
+          <form (ngSubmit)="addTalk()" [formGroup]="addTalkForm">
+            <div class="mb-3">
+              <label for="title">Title</label>
+              <input
+                type="text"
+                class="form-control form-input"
+                id="title"
+                (focus)="reset()"
+                [ngClass]="{ 'is-invalid': submitted && ft.title.errors }"
+                formControlName="title"
+                placeholder="Talk Title"
+                required
+              />
+              <div class="invalid-feedback">
+                Please, enter the talk's title
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="author">Author</label>
+              <input
+                type="text"
+                class="form-control form-input"
+                id="author"
+                (focus)="reset()"
+                [ngClass]="{ 'is-invalid': submitted && ft.author.errors }"
+                formControlName="author"
+                placeholder="Talk's Author"
+                required
+              />
+              <div class="invalid-feedback">
+                Please, enter the talk's author
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="date">Date</label>
+              <input
+                type="date"
+                class="form-control form-input"
+                id="date"
+                (focus)="reset()"
+                [ngClass]="{ 'is-invalid': submitted && ft.date.errors }"
+                formControlName="date"
+                placeholder="Talk's date"
+                required
+              />
+              <div class="invalid-feedback">
+                Please, enter the talk's date
+              </div>
+            </div>
+
+            <button class="btn btn-success" type="submit" [disabled]="submittingAttendee">
+              <div *ngIf="submittingAttendee">
+                Loading....
+              </div>
+              <div *ngIf="!submittingAttendee">
+                Add Talk
+              </div>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-8">
+      <div class="card mb-4 table-card">
+        <div class="card-body">
+          <h3 class="text-center">All Talks</h3>
+
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Date</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of talks | async; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ item.title }}</td>
+                <td>{{ item.author }}</td>
+                <td>{{ item.date | date: 'dd/MM/yyyy' }}</td>
+                <td class="text-center">
+                  <button class="btn btn-sm btn-danger" (click)="detailsModal(item.attendees, item._id)">+</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Attendees Details Modal -->
+  <div
+    class="modal fade"
+    id="detailsModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="detailsModalTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detailsModalTitle">Add Attendees</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="detailsAttendees.length === 0" class="text-center">
+            There are no attendees for this talk <br />
+            please add!
+          </div>
+          <div *ngIf="detailsAttendees.length !== 0" style="overflow-x: scroll;">
+            <table class="table table-striped table-hover" style="height: 40vh;">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Namer</th>
+                  <th scope="col">Email Address</th>
+                  <th scope="col">Phone Number</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of detailsAttendees; let i = index">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>{{ item.firstname }}</td>
+                  <td>{{ item.lastname }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>{{ item.phonenumber }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-center">
+            <form>
+              <select class="form-control mt-3 mb-2" (change)="addAttendeeToTalk(talkId, $event.target.value)">
+                <option default>Select Attendee</option>
+                <option *ngFor="let item of attendees | async" [value]="item._id"
+                  >{{ item.lastname }} {{ item.firstname }}
+                </option>
+              </select>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
