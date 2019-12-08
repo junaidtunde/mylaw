@@ -10,7 +10,7 @@ export class DataService {
 
   constructor(private http: HttpClient) {
     environment.production
-      ? (this.baseUrl = 'http://mylaww.herokuapp.com//api/v1')
+      ? (this.baseUrl = 'http://mylaww.herokuapp.com/api/v1')
       : (this.baseUrl = 'http://localhost:3000/api/v1');
   }
 
