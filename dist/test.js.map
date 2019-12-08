@@ -1,0 +1,1 @@
+{"version":3,"sources":["../server/test.js"],"names":["test","console","log","process","env","SECRET"],"mappings":";;;;;AAAA,IAAMA,OAAO,SAAPA,IAAO,IAAK;AAChBC,UAAQC,GAAR,CAAYC,QAAQC,GAAR,CAAYC,MAAxB;AACD,CAFD;;kBAIeL,I","file":"test.js","sourcesContent":["const test = t => {\n  console.log(process.env.SECRET);\n};\n\nexport default test;\n"]}
